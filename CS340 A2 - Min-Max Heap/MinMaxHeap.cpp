@@ -130,7 +130,6 @@ void MinMaxHeap::checkMaxes(int depth)
 		aCounter = aCounter + 2;
 		bCounter = bCounter + 2;
 	}
-
 }
 void MinMaxHeap::checkMins(int depth)
 {
@@ -146,7 +145,8 @@ void MinMaxHeap::checkMins(int depth)
 		{
 			if (aCounter % 2 == 0) //depending on whether or not aCounter is 
 			{
-				//swapWithSmallest(lowTotal,highTotal)
+				swapWithSmallest(lowTotal, highTotal);
+				// will need to call insert again to get this to work properly.
 			}
 		}
 		aCounter = aCounter + 2;
@@ -158,9 +158,27 @@ void MinMaxHeap::addToHeap(int variable)
 	heap[currentSize] = variable;
 	currentSize++;
 }
-void MinMaxHeap::swapWithSmallest(int upperBound, int lowerBound)
+/*	- Seaches within the lower and upper bounds to find the lowest value.
+	- once value is found, place the value into minimum and its position into minimum position
+	- set the heap at the minimum value's location = the new variable at heap[currentSize]
+	- set the minimum value at the now old "new variable's" location (heap[currentSize] = minimum;)
+*/
+void MinMaxHeap::swapWithSmallest(int lowerBound, int upperBound)
 {
-
+	int counter = lowerBound;
+	int minimum = 9999;
+	int minimumPosition;
+	for (int counter = lowerBound; counter <= upperBound; counter++)
+	{
+		if (heap[counter] < minimum)
+		{
+			minimum = heap[counter];
+			minimumPosition = counter;
+		}
+	}
+	// where the swap takes place
+	heap[minimumPosition] = heap[currentSize];
+	heap[currentSize] = minimum;
 }
 // places integers seperated by NEWLINES from file into string 
 bool MinMaxHeap::isMaxLevel(int pos)
