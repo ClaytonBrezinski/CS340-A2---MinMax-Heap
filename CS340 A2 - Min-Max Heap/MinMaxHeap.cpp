@@ -85,8 +85,14 @@ void MinMaxHeap::insert(int i)
 	// take variable from the array and place it into the rear of the heap
 	addToHeap(integersToHeap[i]);
 	int depth = determineDepth();
-	//checkMaxes(depth);
-	//checkMins();
+	checkMaxes(depth);
+	checkMins(depth);
+}
+void MinMaxHeap::insert()
+{
+	int depth = determineDepth();
+	checkMaxes(depth);
+	checkMins(depth);
 }
 
 int MinMaxHeap::determineDepth()
@@ -105,6 +111,7 @@ int MinMaxHeap::determineDepth()
 		}
 		aCounter++;
 		bCounter++;
+		counter++;
 	}
 }
 void MinMaxHeap::checkMaxes(int depth)
@@ -122,13 +129,12 @@ void MinMaxHeap::checkMaxes(int depth)
 		int highTotal = pow(2, bCounter) - 1;
 		if (currentSize >= lowTotal && currentSize <= highTotal)
 		{
-			if (aCounter % 2 == 0) //depending on whether or not aCounter is 
-			{
-				//swapWithSmallest(lowTotal,highTotal)
-			}
+				swapWithSmallest(lowTotal, highTotal);
+				insert();// will need to call insert again to get this to work properly.
 		}
 		aCounter = aCounter + 2;
 		bCounter = bCounter + 2;
+		counter++;
 	}
 }
 void MinMaxHeap::checkMins(int depth)
@@ -143,14 +149,12 @@ void MinMaxHeap::checkMins(int depth)
 		int highTotal = pow(2, bCounter) - 1;
 		if (currentSize >= lowTotal && currentSize <= highTotal)
 		{
-			if (aCounter % 2 == 0) //depending on whether or not aCounter is 
-			{
-				swapWithSmallest(lowTotal, highTotal);
-				// will need to call insert again to get this to work properly.
-			}
+				swapWithLargest(lowTotal, highTotal);
+				insert();// will need to call insert again to get this to work properly.
 		}
 		aCounter = aCounter + 2;
 		bCounter = bCounter + 2;
+		counter++;
 	}
 }
 void MinMaxHeap::addToHeap(int variable)
@@ -179,6 +183,23 @@ void MinMaxHeap::swapWithSmallest(int lowerBound, int upperBound)
 	// where the swap takes place
 	heap[minimumPosition] = heap[currentSize];
 	heap[currentSize] = minimum;
+}
+void MinMaxHeap::swapWithLargest(int lowerBound, int upperBound)
+{
+	int counter = lowerBound;
+	int maximum = 9999;
+	int maximumPosition;
+	for (int counter = lowerBound; counter <= upperBound; counter++)
+	{
+		if (heap[counter] > maximum)
+		{
+			maximum = heap[counter];
+			maximumPosition = counter;
+		}
+	}
+	// where the swap takes place
+	heap[maximumPosition] = heap[currentSize];
+	heap[currentSize] = maximum;
 }
 // places integers seperated by NEWLINES from file into string 
 bool MinMaxHeap::isMaxLevel(int pos)
