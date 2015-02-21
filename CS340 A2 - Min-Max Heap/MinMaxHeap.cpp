@@ -82,11 +82,11 @@ void MinMaxHeap::insert(int i)
 	// check if it can switch with any of the maximum values in the heap then check if it can switch 
 	// with any of the minimums in the heap
 
-	// take variable from the array and place it into the rear of the array
+	// take variable from the array and place it into the rear of the heap
 	addToHeap(integersToHeap[i]);
 	int depth = determineDepth();
 	//checkMaxes(depth);
-	// checkMins();
+	//checkMins();
 }
 
 int MinMaxHeap::determineDepth()
@@ -124,11 +124,7 @@ void MinMaxHeap::checkMaxes(int depth)
 		{
 			if (aCounter % 2 == 0) //depending on whether or not aCounter is 
 			{
-				return;
-			}
-			else
-			{
-				return;
+				//swapWithSmallest(lowTotal,highTotal)
 			}
 		}
 		aCounter = aCounter + 2;
@@ -166,7 +162,10 @@ void MinMaxHeap::addToHeap(int variable)
 	heap[currentSize] = variable;
 	currentSize++;
 }
+void MinMaxHeap::swapWithSmallest(int upperBound, int lowerBound)
+{
 
+}
 // places integers seperated by NEWLINES from file into string 
 bool MinMaxHeap::isMaxLevel(int pos)
 {

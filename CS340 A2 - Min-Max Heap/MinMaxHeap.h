@@ -20,6 +20,7 @@ private:
 	int determineDepth();
 	void checkMaxes(int depth);
 	void checkMins(int depth);
+	void swapWithSmallest(int upperBound, int lowerBound);
 	void addToHeap(int variable);
 	bool isMaxLevel(const int pos);  // Returns true if a position is on maximum level and false if it is not
 	// void swap(const int indexOne, const int indexTwo);	// Swaps elements in the Heap array using two positions.
