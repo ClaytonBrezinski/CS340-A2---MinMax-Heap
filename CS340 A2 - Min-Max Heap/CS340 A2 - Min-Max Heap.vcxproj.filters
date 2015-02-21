@@ -31,7 +31,7 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MinMaxHeap.cpp">
+    <ClCompile Include="minMaxHeap.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

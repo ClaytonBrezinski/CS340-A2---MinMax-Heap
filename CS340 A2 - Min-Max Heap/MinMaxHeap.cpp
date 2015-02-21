@@ -146,11 +146,7 @@ void MinMaxHeap::checkMins(int depth)
 		{
 			if (aCounter % 2 == 0) //depending on whether or not aCounter is 
 			{
-				return;
-			}
-			else
-			{
-				return;
+				//swapWithSmallest(lowTotal,highTotal)
 			}
 		}
 		aCounter = aCounter + 2;
