@@ -3,6 +3,46 @@
 
 
 
+void MinMaxHeap::printHeap()
+{
+	for (int i = 0; i < maxSize; i++)
+	{
+		cout << heap[i];
+	}
+	cout << endl;
+}
+
+int MinMaxHeap::findMin()
+{
+	int minValue = heap[1];
+	return minValue;
+}
+
+int MinMaxHeap::findMax()
+{
+	if (heap[2] < heap[3])
+	{
+		return  heap[3];
+	}
+	else
+	{
+		return heap[2];
+	}
+}
+
+void MinMaxHeap::deleteMin()
+{
+
+}
+
+void MinMaxHeap::deleteMax()
+{
+
+}
+
+
+
+
 
 // Gets the heap structure and heapifies it. 
 MinMaxHeap::MinMaxHeap()
@@ -26,8 +66,6 @@ void MinMaxHeap::buildMinMaxHeap()
 		insert(i);
 	}
 }
-
-
 
 void MinMaxHeap::readIn()
 {
@@ -88,6 +126,7 @@ void MinMaxHeap::insert(int i)
 	checkMaxes(depth);
 	checkMins(depth);
 }
+
 void MinMaxHeap::insert()
 {
 	int depth = determineDepth();
@@ -114,6 +153,7 @@ int MinMaxHeap::determineDepth()
 		counter++;
 	}
 }
+
 void MinMaxHeap::checkMaxes(int depth)
 {
 	// look at current size, determine what the depth of the tree is - ignore that current depth
@@ -137,6 +177,7 @@ void MinMaxHeap::checkMaxes(int depth)
 		bCounter = bCounter + 2;
 	}
 }
+
 void MinMaxHeap::checkMins(int depth)
 {
 	int aCounter = 0;
@@ -157,11 +198,6 @@ void MinMaxHeap::checkMins(int depth)
 		bCounter = bCounter + 2;
 	}
 }
-void MinMaxHeap::addToHeap(int variable)
-{
-	currentSize++;
-	heap[currentSize] = variable;
-}
 /*	- Seaches within the lower and upper bounds to find the lowest value.
 	- once value is found, place the value into minimum and its position into minimum position
 	- set the heap at the minimum value's location = the new variable at heap[currentSize]
@@ -173,12 +209,14 @@ void MinMaxHeap::swapWithSmallest(int minimumPosition, int minimum)
 	heap[minimumPosition] = heap[currentSize];
 	heap[currentSize] = minimum;
 }
+
 void MinMaxHeap::swapWithLargest(int maximumPosition, int maximum)
 {
 	
 	heap[maximumPosition] = heap[currentSize];
 	heap[currentSize] = maximum;
 }
+
 int MinMaxHeap::findSmallest(int lowerBound, int upperBound)
 {
 	int counter = lowerBound;
@@ -194,6 +232,7 @@ int MinMaxHeap::findSmallest(int lowerBound, int upperBound)
 	}
 	return minimumPosition;
 }
+
 int MinMaxHeap::findLargest(int lowerBound, int upperBound)
 {
 	int counter = lowerBound;
@@ -210,32 +249,9 @@ int MinMaxHeap::findLargest(int lowerBound, int upperBound)
 	return maximumPosition;
 }
 
-// places integers seperated by NEWLINES from file into string 
-bool MinMaxHeap::isMaxLevel(int pos)
+void MinMaxHeap::addToHeap(int variable)
 {
-	int aCounter = 1;
-	int bCounter = 2;
-	if (pos == 1)
-	{
-		return false;
-	}
-	int counter = 0;
-	while (counter <= 5)
-	{
-		int lowTotal = pow(2, aCounter);
-		int highTotal = pow(2, bCounter) - 1;
-		if (pos >= lowTotal && pos <= highTotal)
-		{
-			if (aCounter % 2 == 0) //depending on whether or not aCounter is 
-			{
-				return false;
-			}
-			else
-			{
-				return true;
-			}
-		}
-		aCounter++;
-		bCounter++;
-	}
+	currentSize++;
+	heap[currentSize] = variable;
 }
+

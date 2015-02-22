@@ -4,10 +4,14 @@ using namespace std;
 class MinMaxHeap
 {
 public:
-	MinMaxHeap();
+
+	static const int NUMBER_OF_VARIABLES_ENTERED_IN_TEXT_FILE = 32;
+	/* Constructor */
+	MinMaxHeap();	
+	/* Destructor */
 	~MinMaxHeap()
 	{
-		currentSize = NULL; //takes into account the heap-order property that first place in array cant be filled
+		currentSize = NULL; 
 		maxSize = 32;
 		for (int i = 0; i < maxSize; i++)
 		{
@@ -17,28 +21,32 @@ public:
 		{
 			heap[i] = NULL;
 		}
-		
 	};
-
+	/* Accessors */
+	void printHeap();	// prints the heap
+	int findMin();		// finds the minimum value of the heap and returns it
+	int findMax();		// finds the maximum value of the heap and returns it
+	void insertFromUser(int i) { insert(i); };	// inserts the value given by the user
+	void deleteMin();	// deletes the minimum value 
+	void deleteMax();	// deletes the maximum value
 
 private:
-	int heap[32];	                // MinMaxHeap array
-	int currentSize, maxSize;       // Heap current size, Heap max Size
-	int integersToHeap[32];
+	int heap[NUMBER_OF_VARIABLES_ENTERED_IN_TEXT_FILE];	                // MinMaxHeap array
+	int integersToHeap[NUMBER_OF_VARIABLES_ENTERED_IN_TEXT_FILE];		// array of variables to be added to the heap
+	int currentSize, maxSize;											// Heap current size, Heap max Size
 
-	void buildMinMaxHeap();
-	void readIn();
-	void insertFirstThree();
-	void insert(int i);
-	void insert();
-	int determineDepth();
-	void checkMaxes(int depth);
-	void checkMins(int depth);
-	void swapWithSmallest(int minimumPosition, int minimum);
-	void swapWithLargest(int maximumPosition, int maximum);
-	int findSmallest(int lowerBound, int upperBound);
-	int findLargest(int lowerBound, int upperBound);
-	void addToHeap(int variable);
-	bool isMaxLevel(const int pos);  // Returns true if a position is on maximum level and false if it is not
-	// void swap(const int indexOne, const int indexTwo);	// Swaps elements in the Heap array using two positions.
+	void buildMinMaxHeap();			// builds the min-max heap
+	void readIn();					// reads in the variables from the text file "input.txt"
+	void insertFirstThree();		// inserts the first three variables into the heap with the smallest being at the head
+	void insert(int i);				// inserts the variable into the heap
+	void insert();					// reinserts a variable when a swap occurs
+	int determineDepth();			// determines the depth of the current heap, returns said depth
+	void checkMaxes(int depth);		// determines if the current variable can be swaped with any max values
+	void checkMins(int depth);		// determines if the current variable can be swaped with any min values
+	void swapWithSmallest(int minimumPosition, int minimum); // swaps the given minimum value with the newly inserted value
+	void swapWithLargest(int maximumPosition, int maximum);  // swaps the given maximum value with the newly inserted value
+	int findSmallest(int lowerBound, int upperBound);	// finds the smallest variable at a "max" depth
+	int findLargest(int lowerBound, int upperBound);	// finds the largest variable at a "min" depth
+	void addToHeap(int variable);	// adds the variable to the heap
+	
 };
