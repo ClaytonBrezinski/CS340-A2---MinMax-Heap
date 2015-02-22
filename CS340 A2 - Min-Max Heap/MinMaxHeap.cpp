@@ -7,7 +7,7 @@
 // Gets the heap structure and heapifies it. 
 MinMaxHeap::MinMaxHeap()
 {
-	currentSize = 1; //takes into account the heap-order property that first place in array cant be filled
+	currentSize = 0; //takes into account the heap-order property that first place in array cant be filled
 	maxSize = 32;
 	for (int i = 0; i < maxSize; i++)
 	{
@@ -121,53 +121,65 @@ void MinMaxHeap::checkMaxes(int depth)
 	//check if larger than positions between 
 	int aCounter = 1;
 	int bCounter = 2;
-	int counter = 0;
 
-	while (counter < depth)
+	while (bCounter <= depth)
 	{
 		int lowTotal = pow(2, aCounter);
 		int highTotal = pow(2, bCounter) - 1;
-		if (currentSize >= lowTotal && currentSize <= highTotal)
+		int smallestAtDepth = findSmallest(lowTotal, highTotal);
+
+		if (heap[currentSize] > heap[smallestAtDepth])
 		{
-				swapWithSmallest(lowTotal, highTotal);
+			swapWithSmallest(smallestAtDepth, heap[smallestAtDepth]);
 				insert();// will need to call insert again to get this to work properly.
 		}
 		aCounter = aCounter + 2;
 		bCounter = bCounter + 2;
-		counter++;
 	}
 }
 void MinMaxHeap::checkMins(int depth)
 {
 	int aCounter = 0;
 	int bCounter = 1;
-	int counter = 0;
 
-	while (counter < depth)
+	while (bCounter <= depth)
 	{
 		int lowTotal = pow(2, aCounter);
 		int highTotal = pow(2, bCounter) - 1;
-		if (currentSize >= lowTotal && currentSize <= highTotal)
+		int largestAtDepth = findLargest(lowTotal, highTotal);
+
+		if (heap[currentSize] < heap[largestAtDepth])
 		{
-				swapWithLargest(lowTotal, highTotal);
+			swapWithLargest(largestAtDepth, heap[largestAtDepth]);
 				insert();// will need to call insert again to get this to work properly.
 		}
 		aCounter = aCounter + 2;
 		bCounter = bCounter + 2;
-		counter++;
 	}
 }
 void MinMaxHeap::addToHeap(int variable)
 {
-	heap[currentSize] = variable;
 	currentSize++;
+	heap[currentSize] = variable;
 }
 /*	- Seaches within the lower and upper bounds to find the lowest value.
 	- once value is found, place the value into minimum and its position into minimum position
 	- set the heap at the minimum value's location = the new variable at heap[currentSize]
 	- set the minimum value at the now old "new variable's" location (heap[currentSize] = minimum;)
 */
-void MinMaxHeap::swapWithSmallest(int lowerBound, int upperBound)
+void MinMaxHeap::swapWithSmallest(int minimumPosition, int minimum)
+{
+	
+	heap[minimumPosition] = heap[currentSize];
+	heap[currentSize] = minimum;
+}
+void MinMaxHeap::swapWithLargest(int maximumPosition, int maximum)
+{
+	
+	heap[maximumPosition] = heap[currentSize];
+	heap[currentSize] = maximum;
+}
+int MinMaxHeap::findSmallest(int lowerBound, int upperBound)
 {
 	int counter = lowerBound;
 	int minimum = 9999;
@@ -180,14 +192,12 @@ void MinMaxHeap::swapWithSmallest(int lowerBound, int upperBound)
 			minimumPosition = counter;
 		}
 	}
-	// where the swap takes place
-	heap[minimumPosition] = heap[currentSize];
-	heap[currentSize] = minimum;
+	return minimumPosition;
 }
-void MinMaxHeap::swapWithLargest(int lowerBound, int upperBound)
+int MinMaxHeap::findLargest(int lowerBound, int upperBound)
 {
 	int counter = lowerBound;
-	int maximum = 9999;
+	int maximum = -9999;
 	int maximumPosition;
 	for (int counter = lowerBound; counter <= upperBound; counter++)
 	{
@@ -197,10 +207,9 @@ void MinMaxHeap::swapWithLargest(int lowerBound, int upperBound)
 			maximumPosition = counter;
 		}
 	}
-	// where the swap takes place
-	heap[maximumPosition] = heap[currentSize];
-	heap[currentSize] = maximum;
+	return maximumPosition;
 }
+
 // places integers seperated by NEWLINES from file into string 
 bool MinMaxHeap::isMaxLevel(int pos)
 {
