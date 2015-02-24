@@ -20,3 +20,10 @@
 20
 21
 22
+
+
+/*	- Seaches within the lower and upper bounds to find the lowest value.
+	- once value is found, place the value into minimum and its position into minimum position
+	- set the heap at the minimum value's location = the new variable at heap[currentSize]
+	- set the minimum value at the now old "new variable's" location (heap[currentSize] = minimum;)
+*/

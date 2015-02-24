@@ -1,7 +1,7 @@
 #include "Header.h"
 #include "MinMaxHeap.h"
 
-
+/* Accessors */
 
 void MinMaxHeap::printHeap()
 {
@@ -32,19 +32,75 @@ int MinMaxHeap::findMax()
 
 void MinMaxHeap::deleteMin()
 {
+	heap[1] = NULL;	//delete minimum value
+
+	// counters incremented for looking at the next minimum depth down
+	int depth = determineDepth();
+	int aCounter = 2;	
+	int bCounter = 3;
+	int previousSmallestPosition = 1;
+
+	// checks each minimum depth, grab the minimum value and replace it with the value missing above
+	while (bCounter < depth)
+	{
+		int lowTotal = pow(2, aCounter);
+		int highTotal = pow(2, bCounter) - 1;
+		int smallestAtDepth = findSmallest(lowTotal, highTotal);
+
+		swapWithSmallest(previousSmallestPosition, heap[smallestAtDepth]);
+
+		aCounter = aCounter + 2;
+		bCounter = bCounter + 2;
+		previousSmallestPosition = smallestAtDepth;
+	}
+	// check the current depth for smallest variable and replace the missing min value above
+	bCounter = depth;
+	aCounter = bCounter - 1;
+
+	int lowTotal = pow(2, aCounter);
+	int highTotal = pow(2, bCounter) - 1;
+
+	int smallestAtDepth = findSmallest(lowTotal, highTotal);
+	swapWithSmallest(previousSmallestPosition, heap[smallestAtDepth]);
+
 
 }
 
 void MinMaxHeap::deleteMax()
 {
+	//delete maximum value
+	int maximumPositon = findLargest(2, 3);	
+	heap[maximumPositon] = NULL;
 
+	// counters incremented for looking at the next maximum depth down
+	int depth = determineDepth();
+	int aCounter = 3;		
+	int bCounter = 4;
+
+	// checks each maximum depth, grab the maximum value and replace it with the value missing above
+	while (bCounter < depth)
+	{
+		int lowTotal = pow(2, aCounter);
+		int highTotal = pow(2, bCounter) - 1;
+		int largestAtDepth = findLargest(lowTotal, highTotal);
+
+		swapWithLargest(maximumPositon, heap[largestAtDepth]);
+
+		aCounter = aCounter + 2;
+		bCounter = bCounter + 2;
+		maximumPositon = largestAtDepth;
+	}
+	// check the current depth for largest variable and replace the missing min value above
+	bCounter = depth;
+	aCounter = bCounter - 1;
+
+	int lowTotal = pow(2, aCounter);
+	int highTotal = pow(2, bCounter) - 1;
+
+	int largestAtDepth = findLargest(lowTotal, highTotal);
+	swapWithLargest(maximumPositon, heap[largestAtDepth]);
 }
-
-
-
-
-
-// Gets the heap structure and heapifies it. 
+ 
 MinMaxHeap::MinMaxHeap()
 {
 	currentSize = 0; //takes into account the heap-order property that first place in array cant be filled
@@ -56,6 +112,7 @@ MinMaxHeap::MinMaxHeap()
 	buildMinMaxHeap();
 }
 
+/* Private Functions */
 
 void MinMaxHeap::buildMinMaxHeap()
 {
@@ -198,11 +255,7 @@ void MinMaxHeap::checkMins(int depth)
 		bCounter = bCounter + 2;
 	}
 }
-/*	- Seaches within the lower and upper bounds to find the lowest value.
-	- once value is found, place the value into minimum and its position into minimum position
-	- set the heap at the minimum value's location = the new variable at heap[currentSize]
-	- set the minimum value at the now old "new variable's" location (heap[currentSize] = minimum;)
-*/
+
 void MinMaxHeap::swapWithSmallest(int minimumPosition, int minimum)
 {
 	

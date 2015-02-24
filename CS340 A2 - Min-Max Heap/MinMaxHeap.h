@@ -44,7 +44,7 @@ private:
 	void checkMaxes(int depth);		// determines if the current variable can be swaped with any max values
 	void checkMins(int depth);		// determines if the current variable can be swaped with any min values
 	void swapWithSmallest(int minimumPosition, int minimum); // swaps the given minimum value with the newly inserted value
-	void swapWithLargest(int maximumPosition, int maximum);  // swaps the given maximum value with the newly inserted value
+	void swapWithLargest(int maximumPosition, int maximum);  // swaps the given maximum value with the newly inserted value -- redundant but helps with error checking
 	int findSmallest(int lowerBound, int upperBound);	// finds the smallest variable at a "max" depth
 	int findLargest(int lowerBound, int upperBound);	// finds the largest variable at a "min" depth
 	void addToHeap(int variable);	// adds the variable to the heap
