@@ -6,13 +6,14 @@ class MinMaxHeap
 public:
 
 	static const int NUMBER_OF_VARIABLES_ENTERED_IN_TEXT_FILE = 32;
+	static const int MAXIMUM_HEAP_SIZE = 65; // must be 1 larger than what you desire to take into account the heap order property
 	/* Constructor */
 	MinMaxHeap();	
 	/* Destructor */
 	~MinMaxHeap()
 	{
 		currentSize = NULL; 
-		maxSize = 32;
+		maxSize = 64;
 		for (int i = 0; i < maxSize; i++)
 		{
 			integersToHeap[i] = NULL;
@@ -26,12 +27,12 @@ public:
 	void printHeap();	// prints the heap
 	int findMin();		// finds the minimum value of the heap and returns it
 	int findMax();		// finds the maximum value of the heap and returns it
-	void insertFromUser(int i) { insert(i); };	// inserts the value given by the user
+	void insertFromUser(int i);	// inserts the value given by the user
 	void deleteMin();	// deletes the minimum value 
 	void deleteMax();	// deletes the maximum value
 
 private:
-	int heap[NUMBER_OF_VARIABLES_ENTERED_IN_TEXT_FILE];	                // MinMaxHeap array
+	int heap[MAXIMUM_HEAP_SIZE];										// MinMaxHeap array
 	int integersToHeap[NUMBER_OF_VARIABLES_ENTERED_IN_TEXT_FILE];		// array of variables to be added to the heap
 	int currentSize, maxSize;											// Heap current size, Heap max Size
 

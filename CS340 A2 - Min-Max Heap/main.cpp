@@ -22,11 +22,13 @@ int main()
 		cin >> input;
 		if (input == 'a' || input == 'A')
 		{
-			heap.findMin();
+			int output = heap.findMin();
+			cout << "the minimum integer is: " << output << endl;
 		}
 		else if (input == 'b' || input == 'B')
 		{
-			heap.findMax();
+			int output = heap.findMax();
+			cout << "the maximum integer is: " << output << endl;
 		}
 		else if (input == 'c' || input == 'C')
 		{
@@ -35,7 +37,7 @@ int main()
 			cin >> integer;
 			heap.insertFromUser(integer);
 		}
-		if (input == 'd' || input == 'D')
+		else if (input == 'd' || input == 'D')
 		{
 			heap.deleteMin();
 		}
